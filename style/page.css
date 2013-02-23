@@ -1,7 +1,14 @@
-#pad {
+#butWrap {
     margin: 0px auto;
-    width: 60%;
-    height: 70%;
+    height: auto;
+    width: auto;
+    text-align: center;
+}
+
+#pad {
+    margin: 0 auto;
+    width: 66%;
+    height: 80%;
     border: 2px solid #eee;
 }
 
@@ -13,8 +20,8 @@ button {
     text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
     border: 2px solid #eee;
     margin: 0px auto;
-    width: auto;
-    height: 50px;
+    width: 10%;
+    height: 10%;
     background: #0056CF;
     margin-top: 5px;
 

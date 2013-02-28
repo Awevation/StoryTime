@@ -7,6 +7,7 @@ function main() {
 	$(document).load('../storyForm.html', function(res, status, req) {
 	    if (status != "error") {
 		$('#pad').before(res);
+		loadCss("../style/form.css");
 	    } else {
 		alert("Well would you look at that.... AN ERROR OCCURRED! Accept my sincerest apologyies.");
 	    }
@@ -35,4 +36,12 @@ function genPad(padDetails) {
 	'showControls':'true',
 	'height':$('#pad').css("height") //for some reason the pad doesn't pay attention to the wrapper's height, only its width 
     });
+}
+
+function loadCss(href) {
+    $("<link/>", {
+	rel: "stylesheet",
+    	type: "text/css",
+    	href: href
+    }).appendTo("head");
 }

@@ -12,7 +12,13 @@
     border: 2px solid #eee;
 }
 
+//get rid of the REALLY UGLY GREY DOTTED LINE THAT FIREFOX OTHERWISE INSISTS ON SHOWING ON :ACTIVE
+button::-moz-focus-inner {
+    border: 0;
+}
+
 button {
+    outline: none;
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
     font: 20px "Helvetica", sans-serif;
@@ -24,7 +30,9 @@ button {
     height: 10%;
     background: #0056CF;
     margin-top: 5px;
+    cursor: pointer;
 
+    border: 0px;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
     border-radius: 30px;
@@ -34,9 +42,17 @@ button {
     background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
     background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
     background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+
+    transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
 }
 
 button:hover {
+    border: 0px;
+    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
 }
 
 button:active {

@@ -63,3 +63,9 @@ button:active {
     background-image: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
     background-image: linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
 }
+
+#form {
+    position: absolute;
+    margin: 40px, auto;
+    text-align: center;
+}

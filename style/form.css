@@ -1,19 +1,10 @@
-/*#form {
-    position: absolute;
-    width: 100px
-    height: 100px;
-    margin: 0px auto;
-    top: 40%;
-    text-align: center;
-}*/
-
 #form {
     position:absolute;
     width:500px; 
     height:500px; 
     left:50%;
     margin-left:-250px;
-    line-height: 500px;
+    line-height: 700px;
     text-align: center;
 }
 
@@ -22,11 +13,12 @@ input {
     transition: all 0.25s ease-in-out;
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
+
     border-radius:3px;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
-    border:1px solid rgba(0,0,0, 0.2);
 
+    border:1px solid rgba(0,0,0, 0.2);
 }
 
 input:focus {

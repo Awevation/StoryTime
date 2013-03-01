@@ -1,5 +1,5 @@
 <!--file to be loaded via the wonders of jQuery-->
-<form id="form"> 
+<form id="form" onsubmit="return false;"> <!--stop enter from submitting the form so we can handle the keypress in jQuery, elegant I know-->
     <input type="text" name="padName"></input> 
-    <button type="button" id="submit" name="submit">OK</button>
+    <input type="button"  id="submit" name="submit" value="OK"/>
 </form>

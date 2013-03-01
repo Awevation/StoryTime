@@ -19,7 +19,7 @@ function main() {
 		    onClick();
 		}
 	    });
-	    $('#form input[name=submit]').click(onClick);
+	    $('#form button').click(onClick);
 	});
     });
 

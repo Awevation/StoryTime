@@ -3,16 +3,17 @@ $(document).ready(function() {
 });
 
 function main() {
+    loadCss("../style/form.css");
     $('#storyButton').click(function() {
 	$(document).load('../storyForm.html', function(res, status, req) {
 	    if (status != "error") {
-		$('#butWrap').before(res);
-		loadCss("../style/form.css");
-		$('#form input[name=padName]').focus();
+		$('#butWrap').after(res);
 	    } else {
 		alert("Well would you look at that.... AN ERROR OCCURRED! Accept my sincerest apologyies.");
 	    }
 
+	    $('#form input[name=padName]').focus();
+	    
 	    //set so enter clicks the button and the click event is triggered
 	    $('#form input[name=padName]').keydown(function(event) {
 		if(event.keyCode == 13) {

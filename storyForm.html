@@ -1,5 +1,7 @@
 <!--file to be loaded via the wonders of jQuery-->
-<form id="form" onsubmit="return false;"> <!--stop enter from submitting the form so we can handle the keypress in jQuery, elegant I know-->
-    <input type="text" name="padName"></input> 
-    <button id="submit" name="submit">OK</button>
-</form>
+<div id="formWrap">
+    <form id="form" onSubmit="return false;"> <!--stop submitting the form from actually submitting the form to our server, elegant I know but it's easier to catch the even in jQuery and do what I want with the data-->
+	<input type="text" name="padName"></input> 
+	<button type="button" id="submit" name="submit">OK</button>
+    </form>
+</div>

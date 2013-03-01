@@ -11,11 +11,16 @@
     text-align: center;
 }
 
+#padWrapper {
+    width: 100%;
+    height: auto;
+}
+
 #pad {
     margin: 0 auto;
-    width: 66%;
-    height: 80%;
-    border: 2px solid #eee;
+    width: 90%;
+    height: 90%;
+    border: 10px solid #0056CF;
 }
 
 //get rid of the REALLY UGLY GREY DOTTED LINE THAT FIREFOX OTHERWISE INSISTS ON SHOWING ON :ACTIVE
@@ -30,7 +35,6 @@ button {
     font: 20px "Helvetica", sans-serif;
     color: #FFFFFF;
     text-shadow: 0px 2px 0px rgba(0, 0, 0, 0.2);
-    border: 2px solid #eee;
     margin: 0px auto;
     width: 6em;
     height: 3em;
@@ -68,4 +72,35 @@ button:active {
     background-image: -o-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
     background-image: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
     background-image: linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+}
+
+#formWrap {
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+#form {
+    width: auto; 
+    height: auto; 
+    margin: 0 auto;
+}
+
+input {
+    outline: none;
+    transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+
+    border:1px solid rgba(0,0,0, 0.2);
+}
+
+input:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, 1); 
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1); 
 }

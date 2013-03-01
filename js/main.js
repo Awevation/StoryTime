@@ -62,11 +62,21 @@ function dropForm() {
 }
 
 function genPad(padDetails) {
+    //set the pad's size, these numbers seem to work ish?
+    $('#pad').css("width", $('body').outerWidth(true) - 40);
+    $('#pad').css("height", ($('body').outerHeight(true) - $('#butWrap').outerHeight(true)) - 40);
+
+    var width = $('#pad').outerWidth(true) - 46;
+    var height = $('#pad').outerHeight(true) - 30;
+
+    console.log(height);
+
     $('#pad').pad({
 	'padId':padDetails.name,
     	'showChat':'true',
     	'showControls':'true',
-    	'height':$('#pad').css("height") //for some reason the pad doesn't pay attention to the wrapper's height, only its width 
+	'width':width,
+    	'height':height
     });
 }
 

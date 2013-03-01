@@ -1,3 +1,6 @@
+//global variables, everyone loves them
+var pads = new Array(); //array of pads
+
 $(document).ready(function() {
     main();
 });
@@ -11,11 +14,19 @@ function main() {
 	}
     });
 
+    $('#placeButton').click(function() {
+	if($('#form').is(':visible')) {
+	    //the user has already dropped the form, don't drop another
+	} else {
+	    dropForm();
+	}
+    });
 }
 
 function storyForm() {
     function form() {
 	this.name = $('input[name=padName]').val();
+	this.id;
     }
 
     return new form();
@@ -44,16 +55,8 @@ function dropForm() {
     function onClick() {
 	if($('#form input[name=padName]').val() != '') {
 	    $('#form').toggle('slide', {direction: "up"}, 500, function() { 
+		spawnPad(storyForm());
 		$('#form').remove();
-		$(document).load('../pad.html', function(res, status, req) {
-		    if(status != "error") {
-			$('#butWrap').after(res);
-			genPad(storyForm());
-			$('#pad').effect('slide', {direction: "down"}, 500);
-		    } else {
-			alert("Well would you look at that.... AN ERROR OCCURRED! Accept my sincerest apologyies.");
-		    }
-		});
 	    });
 	} else {
 	    $('#form').effect('bounce', {distance: 10}, 'slow');
@@ -61,23 +64,37 @@ function dropForm() {
     }
 }
 
+function spawnPad(padDetails) {
+    var idNum = pads.length.toString();
+
+    padDetails.id = "pad" + idNum;
+    
+    $('#butWrap').after('<div id="' + padDetails.id + '" + class="pad"></div>');
+   
+    console.log(padDetails);
+    genPad(padDetails);
+    
+    $('#' + padDetails.id).effect('slide', {direction: "down"}, 500);
+}
+
 function genPad(padDetails) {
     //set the pad's size, these numbers seem to work ish?
-    $('#pad').css("width", $('body').outerWidth(true) - 40);
-    $('#pad').css("height", ($('body').outerHeight(true) - $('#butWrap').outerHeight(true)) - 40);
+    $('#' + padDetails.id).css("width", $('body').outerWidth(true) - 40);
+    $('#' + padDetails.id).css("height", ($('body').outerHeight(true) - $('#butWrap').outerHeight(true)) - 40);
 
-    var width = $('#pad').outerWidth(true) - 46;
-    var height = $('#pad').outerHeight(true) - 30;
+    var width = $('#' + padDetails.id).outerWidth(true) - 46;
+    var height = $('#' + padDetails.id).outerHeight(true) - 30;
 
-    console.log(height);
-
-    $('#pad').pad({
+    $('#' + padDetails.id).pad({
 	'padId':padDetails.name,
     	'showChat':'true',
     	'showControls':'true',
 	'width':width,
     	'height':height
     });
+
+    pads.push(padDetails);
+    console.log(pads);
 }
 
 function loadCss(href) {

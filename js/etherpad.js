@@ -50,11 +50,11 @@
           iFrameLink = iFrameLink +'; border-style:'+settings.borderStyle;
           iFrameLink = iFrameLink +';" width="'+ settings.width;
           iFrameLink = iFrameLink +'" height="'+ settings.height; 
-          iFrameLink = iFrameLink +'"></iframe>';
+          iFrameLink = iFrameLink +'"></iframe>';	  
       
-      
+	  
       var $iFrameLink = $(iFrameLink);
-      
+
       if (useValue) {
         var $toggleLink = $('<a href="#'+ selfId +'">'+ settings.toggleTextOn +'</a>').click(function(){
           var $this = $(this);

@@ -14,7 +14,7 @@ html, body {
     text-align: center;
 }
 
-#pad {
+.pad {
     margin: 0 auto;
     padding-left: 6px;
     padding-top: 6px;

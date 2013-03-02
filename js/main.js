@@ -21,6 +21,14 @@ function main() {
 	    dropForm('place');
 	}
     });
+    
+    $('#characterButton').click(function() {
+	if($('#form').is(':visible')) {
+	    //the user has already dropped the form, don't drop another
+	} else {
+	    dropForm('character');
+	}
+    });
 }
 
 //returns the pad taken from the form
@@ -130,6 +138,21 @@ function reflowPads() {
     var noStories = 0;
     var noPlaces = 0;
     var noCharacters = 0;
+    
+    //count
+    for(var i = 0; i < pads.length; i++) {
+	switch(pads[i].type) {
+	    case 'story':
+		noStories++;
+		break;
+	    case 'place':
+		noPlaces++;
+		break;
+	    case 'character':
+		noCharacters++;
+		break;
+	}
+    }
 
     //to set the dimensions after the widths and heights are worked out
     function setPadDimensions() {
@@ -157,20 +180,6 @@ function reflowPads() {
 	}
     }
 
-    //count
-    for(var i = 0; i < pads.length; i++) {
-	switch(pads[i].type) {
-	    case 'story':
-		noStories++;
-		break;
-	    case 'place':
-		noPlaces++;
-		break;
-	    case 'character':
-		noCharacters++;
-		break;
-	}
-    }
 
     if(noPlaces === 0 && noCharacters === 0) {
 	//then just fill the screen with story pad(s)
@@ -203,6 +212,54 @@ function reflowPads() {
 	setPadDimensions();
     }
 
+    if(noPlaces === 0 && noStories === 0) {
+	//then just fill the screen with character pad(s)
+	
+	$('#characterWrap').css('margin', '25px 0px');
+	
+	$('.cPad').css('margin', '0 auto');
+	$('.cPad').css('margin-bottom', '25px');
+	
+	var cWidth = $('body').outerWidth(true) - 40;
+	
+	//25px is the gap between the pads
+	var cHeight = (($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noCharacters + 1)  * 25) / noCharacters);
+
+	setPadDimensions();
+    }
+
+    if(noCharacters >= 1 && noPlaces >=1 && noStories === 0) {
+	//then split half and half
+	$('#characterWrap').css('width', $('body').outerWidth(true) * 0.5);
+	$('#characterWrap').css('float', 'left');
+
+	$('#placeWrap').css('width', $('body').outerWidth(true) * 0.5);
+	$('#placeWrap').css('float', 'right');
+	
+	$('.cPad').css('margin', '0px auto');
+
+	$('.pPad').css('margin', '0px auto');
+	
+	//if more than one set the bottom-margin, otherwise it causes glitchery
+	if(noCharacters > 1) {
+	    //$('.cPad').css('margin-bottom', '25px');
+	} 
+	
+	if(noPlaces > 1) {
+	    //$('.pPad').css('margin-bottom', '25px');
+	}
+	
+	//figure out the new dimensions
+	var pWidth = 0.5 * ($('body').outerWidth(true) - 80);	
+	var cWidth = 0.5 * ($('body').outerWidth(true) - 80);
+
+	var cHeight = ($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noCharacters + 1)  * 25) / noCharacters;
+	var pHeight = ($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noPlaces + 1)  * 25) / noPlaces;
+
+
+	setPadDimensions();	
+    }
+
     if(noStories >= 1 && noPlaces >= 1 && noCharacters === 0) {
 	//then fill the right with places
 	
@@ -232,6 +289,82 @@ function reflowPads() {
 
 	var pHeight = ($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noPlaces + 1)  * 25) / noPlaces;
 	var sHeight = ($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noStories + 1)  * 25) / noStories;
+
+
+	setPadDimensions();	
+    }
+    
+    if(noStories >= 1 && noCharacters >= 1 && noPlaces === 0) {
+	//then fill the left with characters
+	
+	//set the appropriate new CSS properties
+	$('#storyWrap').css('width', $('body').outerWidth(true) * 0.75);
+	$('#storyWrap').css('float', 'right');
+
+	$('#characterWrap').css('width', $('body').outerWidth(true) * 0.25);
+	$('#charcterWrap').css('float', 'left');
+	
+	$('.sPad').css('margin', '0px auto');
+
+	$('.cPad').css('margin', '0px auto');
+	
+	//if more than one set the bottom-margin, otherwise it causes glitchery
+	if(noCharacters > 1) {
+	    $('.pPad').css('margin-bottom', '25px');
+	} 
+	
+	if(noCharacters > 1) {
+	    $('.cPad').css('margin-bottom', '25px');
+	}
+	
+	//figure out the new dimensions
+	var cWidth = 0.25 * ($('body').outerWidth(true) - 80);	
+	var sWidth = $('body').outerWidth(true) - 80 - cWidth;
+
+	var cHeight = ($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noCharacters + 1)  * 25) / noCharacters;
+	var sHeight = ($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noStories + 1)  * 25) / noStories;
+
+
+	setPadDimensions();	
+    }
+    
+    if(noCharacters >= 1 && noPlaces >=1 && noStories >= 1) {
+	//All three.
+	$('#storyWrap').css('width', $('body').outerWidth(true));
+
+	$('#placeWrap').css('width', $('body').outerWidth(true) * 0.25);
+	$('#placeWrap').css('float', 'right');
+	
+	$('#characterWrap').css('width', $('body').outerWidth(true) * 0.25);
+	$('#characterWrap').css('float', 'left');
+	
+	$('.sPad').css('margin', '0px auto');
+
+	$('.pPad').css('margin', '0px auto');
+
+	$('.cPad').css('margin', '0px auto');
+	
+	//if more than one set the bottom-margin, otherwise it causes glitchery
+	if(noPlaces > 1) {
+	    $('.pPad').css('margin-bottom', '25px');
+	} 
+	
+	if(noStories > 1) {
+	    $('.sPad').css('margin-bottom', '25px');
+	}
+	
+	if(noCharacters > 1) {
+	    $('.cPad').css('margin-bottom', '25px');
+	}
+
+	//figure out the new dimensions
+	var pWidth = 0.25 * ($('body').outerWidth(true) - 80);	
+	var cWidth = pWidth;
+	var sWidth = $('body').outerWidth(true) - 80 - pWidth - cWidth;
+	
+	var pHeight = ($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noPlaces + 1)  * 25) / noPlaces;
+	var sHeight = ($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noStories + 1)  * 25) / noStories;
+	var cHeight = ($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noCharacters + 1)  * 25) / noCharacters;
 
 
 	setPadDimensions();	

@@ -174,8 +174,8 @@ function reflowPads() {
 
     if(noPlaces === 0 && noCharacters === 0) {
 	//then just fill the screen with story pad(s)
-	
 	$('#storyWrap').css('margin', '25px 0px');
+	
 	$('.sPad').css('margin', '0 auto');
 	$('.sPad').css('margin-bottom', '25px');
 	
@@ -183,6 +183,22 @@ function reflowPads() {
 	
 	//25px is the gap between the pads
 	var sHeight = (($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noStories + 1)  * 25) / noStories);
+
+	setPadDimensions();
+    }
+    
+    if(noStories === 0 && noCharacters === 0) {
+	//then just fill the screen with place pad(s)
+	
+	$('#placeWrap').css('margin', '25px 0px');
+	
+	$('.pPad').css('margin', '0 auto');
+	$('.pPad').css('margin-bottom', '25px');
+	
+	var pWidth = $('body').outerWidth(true) - 40;
+	
+	//25px is the gap between the pads
+	var pHeight = (($('body').outerHeight(true) - $('#butWrap').outerHeight(true) - $('#formWrap').outerHeight(true) - (noPlaces + 1)  * 25) / noPlaces);
 
 	setPadDimensions();
     }
@@ -197,11 +213,18 @@ function reflowPads() {
 	$('#placeWrap').css('width', $('body').outerWidth(true) * 0.25);
 	$('#placeWrap').css('float', 'right');
 	
-	$('.sPad').css('margin', '0 auto');
-	$('.sPad').css('margin-bottom', '25px');
+	$('.sPad').css('margin', '0px auto');
 
-	$('.pPad').css('margin', '0 auto');
-	$('.pPad').css('margin-bottom', '25px');
+	$('.pPad').css('margin', '0px auto');
+	
+	//if more than one set the bottom-margin, otherwise it causes glitchery
+	if(noPlaces > 1) {
+	    $('.pPad').css('margin-bottom', '25px');
+	} 
+	
+	if(noStories > 1) {
+	    $('.sPad').css('margin-bottom', '25px');
+	}
 	
 	//figure out the new dimensions
 	var pWidth = 0.25 * ($('body').outerWidth(true) - 80);	

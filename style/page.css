@@ -16,12 +16,9 @@ html, body {
 
 .pad {
     margin: 0 auto;
-    padding-left: 6px;
-    padding-top: 6px;
-    border: 10px solid #0056CF;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    border-radius: 30px;
+    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 255, 1);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
 }
 
 //get rid of the REALLY UGLY GREY DOTTED LINE THAT FIREFOX OTHERWISE INSISTS ON SHOWING ON :ACTIVE

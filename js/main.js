@@ -71,30 +71,40 @@ function spawnPad(padDetails) {
     
     $('#butWrap').after('<div id="' + padDetails.id + '" + class="pad"></div>');
    
-    console.log(padDetails);
     genPad(padDetails);
     
     $('#' + padDetails.id).effect('slide', {direction: "down"}, 500);
 }
 
-function genPad(padDetails) {
-    //set the pad's size, these numbers seem to work ish?
+//fits the pad to the screen, resizing the container div and actual iframe
+function fitPad(padDetails) {
+    var width = $('#' + padDetails.id).width();
+    var height = $('#' + padDetails.id).height();
+
     $('#' + padDetails.id).css("width", $('body').outerWidth(true) - 40);
-    $('#' + padDetails.id).css("height", ($('body').outerHeight(true) - $('#butWrap').outerHeight(true)) - 40);
+    $('#' + padDetails.id).css("height", ($('body').outerHeight(true) - $('#butWrap').outerHeight(true)) - 20);
+    $('#' + padDetails.id + ' iframe').css('width', width);
+    $('#' + padDetails.id + ' iframe').css('height', height);
+}
 
-    var width = $('#' + padDetails.id).outerWidth(true) - 46;
-    var height = $('#' + padDetails.id).outerHeight(true) - 30;
-
+function genPad(padDetails) {
     $('#' + padDetails.id).pad({
 	'padId':padDetails.name,
     	'showChat':'true',
     	'showControls':'true',
-	'width':width,
-    	'height':height
+	'width':$('#' + padDetails.id).width(),
+    	'height':$('#' + padDetails.id).height()
+
+    });
+
+    fitPad(padDetails);
+
+    
+    $(window).resize(function() {
+	fitPad(padDetails);
     });
 
     pads.push(padDetails);
-    console.log(pads);
 }
 
 function loadCss(href) {

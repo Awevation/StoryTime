@@ -13,13 +13,36 @@ html, body {
     text-align: center;
 }
 
-.pad {
+.sPad {
     margin: 0 auto;
     margin-top: 25px;
     margin-bottom: 25px;
     box-shadow: 0 0 5px rgba(0, 0, 255, 1);
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 255, 1);
     -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+}
+
+.pPad {
+    //float: right;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 255, 1);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+}
+
+.cPad {
+    //float: left;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 255, 1);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+}
+
+//just set the height to be 100%, specifics are set on an id basis in JS
+.wrapper {
+    height: 100%
 }
 
 //get rid of the REALLY UGLY GREY DOTTED LINE THAT FIREFOX OTHERWISE INSISTS ON SHOWING ON :ACTIVE
@@ -76,6 +99,7 @@ button:active {
 #formWrap {
     width: 100%;
     height: auto;
+    margin-top: 10px;
     text-align: center;
 }
 

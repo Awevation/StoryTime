@@ -10,12 +10,13 @@ html, body {
     height: auto;
     width: auto;
     padding-top: 10px;
-    padding-bottom: 10px;
     text-align: center;
 }
 
 .pad {
     margin: 0 auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
     box-shadow: 0 0 5px rgba(0, 0, 255, 1);
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 255, 1);
     -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1);

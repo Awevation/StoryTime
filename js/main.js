@@ -10,7 +10,7 @@ function main() {
 	if($('#form').is(':visible')) {
 	    //the user has already dropped the form, don't drop another
 	} else {
-	    dropForm();
+	    dropForm('story');
 	}
     });
 
@@ -18,21 +18,27 @@ function main() {
 	if($('#form').is(':visible')) {
 	    //the user has already dropped the form, don't drop another
 	} else {
-	    dropForm();
+	    dropForm('place');
 	}
     });
 }
 
-function storyForm() {
-    function form() {
+//returns the pad taken from the form
+function getFormPad(type) {
+    function pad() {
+	//pad's user chosen name
 	this.name = $('input[name=padName]').val();
+	//pad div's CSS id, which will hold the embedded iFrame
 	this.id;
+	//pad's type, story, place or character. Determines how it behaves
+	this.type = type;
     }
 
-    return new form();
+    return new pad();
 }
 
-function dropForm() {
+//loads the html necessary and drops the form
+function dropForm(formToDrop) {
     $(document).load('../storyForm.html', function(res, status, req) {
 	if (status != "error") {
 	    $('#butWrap').after(res);
@@ -42,6 +48,7 @@ function dropForm() {
 	}
 
 	$('#form input[name=padName]').focus();
+	
 	$('#form button').click(onClick);
 
 	//set so enter clicks the button and the click event is triggered
@@ -50,13 +57,22 @@ function dropForm() {
 		onClick();
 	    }
 	});
+	
+	//set so when user clisk backspace the form disappears
+	$('#form input[name=padName]').keydown(function(event) {
+	    if(event.keyCode == 8) {
+		$('#form').toggle('slide', {direction: "up"}, 500, function() { 
+		    $('#formWrap').remove();
+		});
+	    }
+	});
     });
     
     function onClick() {
 	if($('#form input[name=padName]').val() != '') {
 	    $('#form').toggle('slide', {direction: "up"}, 500, function() { 
-		spawnPad(storyForm());
-		$('#form').remove();
+		spawnPad(getFormPad(formToDrop));
+		$('#formWrap').remove();
 	    });
 	} else {
 	    $('#form').effect('bounce', {distance: 10}, 'slow');
@@ -64,6 +80,7 @@ function dropForm() {
     }
 }
 
+//spawn a pad based on the pad details
 function spawnPad(padDetails) {
     var idNum = pads.length.toString();
 
@@ -71,7 +88,26 @@ function spawnPad(padDetails) {
     
     $('#butWrap').after('<div id="' + padDetails.id + '" + class="pad"></div>');
    
-    genPad(padDetails);
+    //this actually embeds the etherPad iFrame
+    $('#' + padDetails.id).pad({
+	'padId':padDetails.name,
+    	'showChat':'true',
+    	'showControls':'true',
+	'width':$('#' + padDetails.id).width(),
+    	'height':$('#' + padDetails.id).height()
+
+    });
+
+    pads.push(padDetails);
+    
+    reflowPads();
+
+    //fitPad(padDetails);
+    
+    $(window).resize(function() {
+	//fitPad(padDetails);
+	reflowPads();
+    });
     
     $('#' + padDetails.id).effect('slide', {direction: "down"}, 500);
 }
@@ -87,24 +123,42 @@ function fitPad(padDetails) {
     $('#' + padDetails.id + ' iframe').css('height', height);
 }
 
-function genPad(padDetails) {
-    $('#' + padDetails.id).pad({
-	'padId':padDetails.name,
-    	'showChat':'true',
-    	'showControls':'true',
-	'width':$('#' + padDetails.id).width(),
-    	'height':$('#' + padDetails.id).height()
+//reflows the pads apporpriately, based on type, number of pads on screen
+function reflowPads() {
+    var noStories = 0;
+    var noPlaces = 0;
+    var noCharacters = 0;
 
-    });
+    for(var i = 0; i < pads.length; i++) {
+	switch(pads[i].type) {
+	    case 'story':
+		noStories++;
+		break;
+	    case 'place':
+		noPlaces++;
+		break;
+	    case 'character':
+		noCharacters++;
+		break;
+	}
+    }
 
-    fitPad(padDetails);
+    console.log(noCharacters);
 
-    
-    $(window).resize(function() {
-	fitPad(padDetails);
-    });
+    if(noPlaces === 0 && noCharacters === 0) {
+	//then just fill the screen with story pad(s)
+	var width = ($('body').outerWidth(true) - 40);
+	
+	//25px is the gap between the pads
+	var height = (($('body').outerHeight(true) - $('#butWrap').outerHeight(true)  - 25 - noStories  * 25) / noStories); 
 
-    pads.push(padDetails);
+	for(var i = 0; i < pads.length; i++) {
+	    $('#' + pads[i].id).css('width', width);
+	    $('#' + pads[i].id).css('height', height);
+	    $('#' + pads[i].id + ' iframe').css('width', width);
+	    $('#' + pads[i].id + ' iframe').css('height', height);
+	}
+    }
 }
 
 function loadCss(href) {
